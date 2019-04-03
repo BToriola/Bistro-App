@@ -22,23 +22,22 @@ export default class Feed extends Component {
         foodPrice: "",
         foodcategory: "",
         foodPhoto:
-          "http://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png",
-        category1: null,
-        modalVisible: false
+          "http://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png"
       }
     ]
   };
 
-  componentWillMount() {
+  componentDidMount() {
     db.collection("foods").onSnapshot(querySnapshot => {
       let foodArray = [];
       querySnapshot.forEach(doc => {
         if (doc.exists) {
           let foodStore = doc.data();
-          const { id } = doc.id;
 
           //console.log(doc.id, " => ", doc.data(), doc.data().description);
           foodArray.push({
+            key: doc.id,
+            doc,
             foodCategory: foodStore.category,
             foodPrice: foodStore.price,
             foodPhoto: foodStore.photo,
@@ -73,11 +72,10 @@ export default class Feed extends Component {
             return (
               <TouchableOpacity
                 key={i}
-                onPress={item => {
+                onPress={() => {
                   this.props.navigation.navigate("FeedDetails", {
-                    id: item.id
+                    itemkey: `${JSON.stringify(item.key)}`
                   });
-                  this.setState({ category1: item, modalVisible: true });
                 }}
               >
                 <View style={{ alignSelf: "flex-start" }}>
