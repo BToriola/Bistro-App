@@ -13,30 +13,26 @@ import {
   Dimensions
 } from "react-native";
 
-import Icon from "@expo/vector-icons/AntDesign";
+import ShoppingcartIcon from "../reusables/shoppingCartIcon";
+
+import { connect } from "react-redux";
 
 import "firebase/firestore";
 import { firebaseRef, db } from "../../services/Firebase";
 
-export default class FeedDetails extends Component {
-  static navigationOptions = {
-    title: "Food Details",
-    headerRight: (
-      <TouchableOpacity
-        onPress={() =>
-          this.props.navigation.navigate({ routeName: "CartItems" })
-        }
-      >
-        <Icon name="shoppingcart" size={30} style={{ paddingRight: 20 }} />
-      </TouchableOpacity>
-    )
-  };
+class FeedDetails extends Component {
   state = {
     isLoading: true,
     item: {},
     key: "",
     count: 1,
-    total: 0
+    total: 0,
+    cartNumber: 0
+  };
+
+  static navigationOptions = {
+    title: "Food Details",
+    headerRight: <ShoppingcartIcon />
   };
 
   componentDidMount() {
@@ -105,20 +101,17 @@ export default class FeedDetails extends Component {
           >
             {this.state.item.name}
           </Text>
-
           <View style={{ width: "100%", marginBottom: 20 }}>
             <Image
               source={{ uri: this.state.item.photo }}
               style={{ width: 400, height: 200 }}
             />
           </View>
-
           <View>
             <Text h5 style={{ color: "#333322" }}>
               {this.state.item.description}
             </Text>
           </View>
-
           <View style={styles.counter}>
             <View style={{ flex: 1 }}>
               <Button
@@ -170,6 +163,9 @@ export default class FeedDetails extends Component {
                   justifyContent: "center",
                   flexDirection: "row"
                 }}
+                onPress={() => {
+                  this.props.addItemToCart;
+                }}
               >
                 {this.state.loading && (
                   <ActivityIndicator color="#fff" size="small" />
@@ -206,6 +202,8 @@ export default class FeedDetails extends Component {
     );
   }
 }
+
+export default FeedDetails;
 
 const styles = StyleSheet.create({
   container: {

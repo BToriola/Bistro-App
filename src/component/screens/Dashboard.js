@@ -25,7 +25,7 @@ export default class DashboardScreen extends Component {
     ]
   };
 
-  componentWillMount() {
+  componentDidMount() {
     db.collection("foods").onSnapshot(querySnapshot => {
       let foodArray = [];
       querySnapshot.forEach(doc => {

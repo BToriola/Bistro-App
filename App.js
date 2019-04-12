@@ -27,9 +27,13 @@ import DashboardScreen from "./src/component/screens/Dashboard";
 import "firebase/firestore";
 
 class App extends React.Component {
+  state = {
+    name: "Paulo"
+  };
+
   render() {
     const { navigation } = this.props;
-    return <AppContainer />;
+    return <AppContainer screenProps={{ name: this.state.name }} />;
   }
 }
 

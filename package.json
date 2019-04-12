@@ -22,7 +22,9 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-fbsdk": "^0.8.0",
     "react-native-fontawesome": "^6.0.1",
-    "react-navigation": "^3.4.1"
+    "react-navigation": "^3.4.1",
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"
